@@ -51,11 +51,7 @@ Requires NVIDIA GPU, PyTorch 2.0+ with CUDA (`torch.compile`).
 ## Files
 
 - `kimi26_benchmark.py` — Kimi-K2.6 scale benchmark (primary; self-contained)
-- `transform_weights_v2.py` — Weight transformation with numerical verification
-- `fused_layernorm_linear.py` — Basic fused implementation
-- `benchmark_compiled.py` — Smaller-shape `torch.compile` benchmark
-- `opt7b_cuda_benchmark.py` — CUDA-stream concurrency experiment
-- `CUDA_LayerNorm_Fusion_Report.docx` — Full technical report
+
 
 ## Benchmark results (NVIDIA L4)
 
