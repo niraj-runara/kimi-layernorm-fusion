@@ -1,0 +1,79 @@
+(main) root@C.37799333:/$ python kimi.py
+GPU: NVIDIA L4
+PyTorch: 2.6.0+cu124
+CUDA: 12.4
+
+============================================================
+Benchmark: Kimi-K2.6 FFN (batch=1, seq=2048)
+Config: batch=1, seq=2048, hidden=7168, out=25088
+============================================================
+Input shape: torch.Size([1, 2048, 7168])
+Weight shape: torch.Size([25088, 7168])
+Memory: 2.89 GB
+Compiling & warming up...
+/venv/main/lib/python3.12/site-packages/torch/_inductor/compile_fx.py:194: UserWarning: TensorFloat32 tensor cores for float32 matrix multiplication available but not enabled. Consider setting `torch.set_float32_matmul_precision('high')` for better performance.
+  warnings.warn(
+W0525 18:27:19.979000 7562 venv/main/lib/python3.12/site-packages/torch/_inductor/utils.py:1137] [1/0] Not enough SMs to use max_autotune_gemm mode
+Numerical accuracy: max diff = 1.43e-05
+
+Results:
+  Baseline (LN+Linear): 78.727 ms
+  Fused:                80.958 ms
+  Speedup:              0.97x (slower)
+
+============================================================
+Benchmark: Kimi-K2.6 FFN (batch=1, seq=4096)
+Config: batch=1, seq=4096, hidden=7168, out=25088
+============================================================
+Input shape: torch.Size([1, 4096, 7168])
+Weight shape: torch.Size([25088, 7168])
+Memory: 2.89 GB
+Compiling & warming up...
+Numerical accuracy: max diff = 1.57e-05
+
+Results:
+  Baseline (LN+Linear): 159.822 ms
+  Fused:                167.125 ms
+  Speedup:              0.96x (slower)
+
+============================================================
+Benchmark: Kimi-K2.6 FFN (batch=4, seq=2048)
+Config: batch=4, seq=2048, hidden=7168, out=25088
+============================================================
+Input shape: torch.Size([4, 2048, 7168])
+Weight shape: torch.Size([25088, 7168])
+Memory: 3.21 GB
+Compiling & warming up...
+Numerical accuracy: max diff = 1.48e-05
+
+Results:
+  Baseline (LN+Linear): 329.721 ms
+  Fused:                345.026 ms
+  Speedup:              0.96x (slower)
+
+============================================================
+Benchmark: Kimi-K2.6 Attention proj
+Config: batch=1, seq=2048, hidden=7168, out=7168
+============================================================
+Input shape: torch.Size([1, 2048, 7168])
+Weight shape: torch.Size([7168, 7168])
+Memory: 4.97 GB
+Compiling & warming up...
+Numerical accuracy: max diff = 1.24e-05
+
+Results:
+  Baseline (LN+Linear): 23.601 ms
+  Fused:                25.969 ms
+  Speedup:              0.91x (slower)
+
+============================================================
+SUMMARY - Kimi-K2.6 Scale
+============================================================
+Kimi-K2.6 FFN (batch=1, seq=2048)
+  78.73ms -> 80.96ms = 0.97x (slower)
+Kimi-K2.6 FFN (batch=1, seq=4096)
+  159.82ms -> 167.13ms = 0.96x (slower)
+Kimi-K2.6 FFN (batch=4, seq=2048)
+  329.72ms -> 345.03ms = 0.96x (slower)
+Kimi-K2.6 Attention proj
+  23.60ms -> 25.97ms = 0.91x (slower)
